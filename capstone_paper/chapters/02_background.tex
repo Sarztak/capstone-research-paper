@@ -1,0 +1,31 @@
+% Chapter: Background
+
+\section{Background}
+\subsection{Commercial Tools}
+Today, multiple companies offer professional-grade software platforms to support drone light show production. Tools such as SPH Engineering’s Drone Show Software, Verge Aero's Design Studio, and Vimdrones Designer enable users to create and preview 3D formations, script movement paths over time, and integrate visual elements like lighting and branding. These platforms are typically timeline-based, GUI-driven, and built for production environments with specific drone hardware in mind.
+
+While powerful, these tools assume a high degree of familiarity with the technical pipeline. They are not accessible to users outside the domain and require training, experience, and often vendor lock-in. More importantly, they provide little to no support for early-stage creative exploration. There is no natural language interface, no intelligent co-creation support, and limited ability to iterate fluidly based on rough conceptual prompts. This presents a missed opportunity: the most time-intensive and cognitively demanding part of the workflow, shaping the creative intent into executable sequences, remains largely manual.
+
+\subsection{Academic Work}
+A wave of academic interest has emerged around using Large Language Models (LLMs) to generate drone swarm behaviors. These efforts share a common goal: enabling intuitive interfaces for human-guided swarm design. However, the methods differ significantly, and each comes with critical limitations.
+
+CLIPSwarm uses CLIP embeddings to map single-word prompts (e.g., “leaf”) to 2D contour formations generated via alpha shapes. The formation is refined iteratively to improve CLIP similarity. While visually compelling, the system is limited to 2D silhouettes, lacks fine control, and shows semantic drift. Importantly, CLIPSwarm has only been tested in photo-realistic simulation, with no hardware demonstration.
+
+SwarmGPT-Primitive generates a sequence of motion primitives (spiral, helix, wave) that align with musical beats. It includes a safety filter and self-correction for invalid LLM outputs. While this method improves reliability, it constrains creativity to a fixed library of motions and assumes prompt-to-primitive alignment can capture intent.
+
+Swarm-GPT uses LLMs to generate waypoints for each drone, synchronized with beat timings from an audio track. These are passed through a safety optimizer before deployment. While more flexible, the approach suffers from verbosity, repetition, and difficulty modifying specific parts of the show. It also operates centrally, rather than distributing reasoning.
+
+LLM-Flock explores the use of LLMs for decentralized formation planning. Each robot runs an LLM locally and adopts plans through an influence-based consensus protocol. This novel setup supports adaptability and demonstrates physical deployment with Crazyflie drones. However, the approach is currently limited to basic shapes (circle, triangle), with no support for creative choreography or sequence design.
+
+FlockGPT introduces signed distance functions (SDFs) to define target formations. A central LLM converts natural language prompts into SDFs, which are then used to generate formations and allow real-time dialogue for revision. This is the most interaction-focused framework to date, but is limited to static geometry, lacking any notion of timing, motion, or music.
+
+\subsection{Identified Gaps}
+Across both commercial and academic approaches, several common limitations emerge:
+\begin{itemize}
+  \item Studying the workflow, constraints, and tools currently used by professionals through interviews and secondary research.
+  \item Prototyping modular interaction pipelines (e.g., prompt → LLM → shape/trajectory → visualization).
+  \item Evaluating outputs for interpretability, consistency, and usability by both expert and novice users.
+\end{itemize}
+
+This work positions itself to address these gaps by building a prototype agent that emphasizes human-in-the-loop iteration, creative support, and workflow awareness, without overpromising full automation or technical generalization.
+

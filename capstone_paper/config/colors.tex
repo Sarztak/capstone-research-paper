@@ -1,0 +1,29 @@
+% Color definitions
+\definecolor{promptbg}{RGB}{240,248,255}
+\definecolor{outputbg}{RGB}{255,250,240}
+\definecolor{promptborder}{RGB}{70,130,180}
+\definecolor{outputborder}{RGB}{218,165,32}
+
+% Prompt box
+\newtcolorbox{promptbox}[1][]{
+  colback=promptbg,
+  colframe=promptborder,
+  arc=2mm,
+  boxrule=0.5pt,
+  left=5pt, right=5pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries,
+  title=Prompt,
+  #1
+}
+
+% Output box
+\newtcolorbox{outputbox}[1][]{
+  colback=outputbg,
+  colframe=outputborder,
+  arc=2mm,
+  boxrule=0.5pt,
+  left=5pt, right=5pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries,
+  title=LLM Output,
+  #1
+}

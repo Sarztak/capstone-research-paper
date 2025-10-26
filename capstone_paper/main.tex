@@ -1,0 +1,42 @@
+\documentclass[12pt, letterpaper]{article}
+
+% Configuration
+\input{config/preamble}
+\input{config/formatting}
+\input{config/colors}
+\input{config/commands}
+
+% Bibliography
+\addbibresource{references/references.bib}
+
+\begin{document}
+
+% Front matter
+\input{frontmatter/titlepage}
+\input{frontmatter/abstract}
+\input{frontmatter/executive_summary}
+\input{frontmatter/toc}
+
+% Main content
+\input{chapters/01_introduction}
+\input{chapters/02_background}
+\input{chapters/03_data}
+\input{chapters/04_methodology}
+\input{chapters/05_findings}
+\input{chapters/06_discussion}
+\input{chapters/07_conclusion}
+
+% References
+\newpage
+
+\printbibliography[title={References}]
+
+% Appendices
+\newpage
+\begin{appendices}
+\input{appendices/appendix_a}
+\input{appendices/appendix_b}
+\input{appendices/appendix_c}
+\end{appendices}
+
+\end{document}

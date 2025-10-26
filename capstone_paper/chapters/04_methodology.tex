@@ -1,0 +1,48 @@
+% Chapter: Methodology
+
+\section{Methodology}
+
+\subsection{Workflow Analysis}
+We begin by mapping the current state of drone show design workflows:
+\begin{itemize}
+  \item Interviews with professional drone choreographers or companies (if accessible) to understand their tools, timelines, and pain points.
+  \item Secondary research using documentation, training videos, and technical manuals from platforms like SPH Engineering or Verge Aero to reverse-engineer the design constraints and expectations of existing software.
+\end{itemize}
+
+This step ensures that the work is grounded in actual creative and operational needs, rather than assumptions derived from simulation-based research.
+
+\subsection{Agent Development}
+We will design and implement a lightweight language-driven design agent that enables users to generate and iterate on drone choreographies through natural language or structured inputs. This agent will consist of the following components:
+
+\begin{itemize}
+  \item \textbf{Prompt Interface}: Accepts high-level textual commands such as “form a cube that rotates and then expands into a spiral.”
+  \item \textbf{LLM Processing Module}: Parses and interprets prompts using pre-trained language models (e.g., GPT-4, Claude, or LLaMA). We may test outputs across different models to assess consistency and interpretability, but we do not aim to benchmark them as standalone systems.
+  \item \textbf{Formation Generator}: Translates LLM output into intermediate representations such as waypoints, motion primitives, or SDF-based geometries.
+  \item \textbf{Visualizer}: Renders the generated formations and motion sequences using 2D or 3D plotting libraries or simulation environments (e.g., Matplotlib, Plotly, Unity).
+\end{itemize}
+
+This pipeline is designed to be modular, allowing us to replace or isolate components for controlled evaluation.
+
+\subsection{Evaluation}
+Rather than focusing solely on model performance, we will evaluate the system along qualitative and user-centered dimensions:
+\begin{itemize}
+  \item \textbf{Prompt consistency}: Does the same prompt yield semantically equivalent outputs across sessions?
+  \item \textbf{Editability}: Can users easily refine outputs via re-prompts or structured input tweaks?
+  \item \textbf{Recognizability}: Do generated shapes align with user intent (visually and semantically)?
+  \item \textbf{Transparency}: Can users understand how outputs were generated, or are they opaque?
+  \item \textbf{Time savings / iteration speed}: Where possible, compare against baseline design processes.
+\end{itemize}
+
+These evaluations will be documented through user feedback (if pilot-tested), annotated logs, and internal analyses.
+
+\subsection{Limitations}
+Throughout the project, we will document and reflect on:
+\begin{itemize}
+  \item \textbf{Failure cases}: e.g., ungrounded outputs, hallucinations, ambiguity in instructions.
+  \item \textbf{Gaps between LLM output and operational feasibility}.
+  \item \textbf{Where structured templates outperform creative prompts}.
+  \item \textbf{Where non-LLM alternatives might be preferable}.
+\end{itemize}
+
+This stage is critical for avoiding unjustified generalizations and for surfacing design recommendations that may extend beyond our own system.
+

@@ -1,0 +1,52 @@
+% Chapter: Introduction
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\section{Introduction}
+\subsection{Problem Statement}
+Drone light shows have emerged as a visually striking form of large-scale entertainment, combining artistic design, precise swarm coordination, and real-time control of autonomous aerial vehicles. Despite their growing popularity in public events and commercial productions, the design and execution of such shows remains a labor-intensive and technically complex process. Creating choreographies that are not only visually appealing but also physically feasible requires expert input at multiple stages, from formation design and timing to collision avoidance and deployment logistics.
+
+Recent research efforts have proposed using Large Language Models (LLMs) as intuitive interfaces for guiding drone swarm behaviors. The appeal of this approach lies in the promise of natural language interaction: a user simply describes the desired outcome ("make a spiral that transforms into a cube") and the LLM generates the appropriate drone trajectories. However, a closer inspection of the current body of work reveals a critical limitation: LLMs are not being used to control swarms, but merely to generate intermediate representations (e.g., waypoints, motion primitives, alpha-shape outlines) that are then passed to conventional control or optimization algorithms. In effect, LLMs serve as translators, not choreographers.
+
+While existing research on LLM-driven drone choreography primarily emphasizes technical feasibility and simulation results, there appears to be a lack of direct engagement with industry professionals or comprehensive evaluations comparing these approaches to established GUI-based tools and scripting systems. As a result, it remains unclear whether LLMs meaningfully improve the creative process, reduce production time, or resolve any specific pain points in real-world workflows.
+
+This disconnect raises the central problem our project seeks to address: Can natural language interfaces meaningfully reduce the cognitive or operational load of drone show design, and under what conditions are LLMs actually useful? To answer this, we must move beyond proof-of-concept demos and engage critically with the needs, constraints, and workflows of real-world drone light show designers. Without this grounding, efforts to integrate LLMs into choreography systems risk being performative rather than transformative.
+
+
+\subsection{Analysis Goals}
+The goal of this research is not to build yet another language-to-trajectory pipeline for drone swarms, but to critically examine the role, and limitations, of large language models (LLMs) in the process of drone light show design. Our analysis centers on the gap between the operational realities of drone choreography and the assumptions made in current LLM-driven frameworks.
+
+To that end, we define the following guiding questions:
+\begin{enumerate}
+  \item What are the actual constraints, tools, and creative workflows used by professionals who design drone light shows today?
+  \item What roles are LLMs currently being assigned in drone swarm research, and are those roles addressing real problems faced by practitioners?
+  \item Can we propose and prototype alternative interfaces, whether LLM-based or not, that are better aligned with practitioner needs?
+  \item What are the limits of LLMs in this context, in terms of creativity, safety, generalization, and interpretability?
+\end{enumerate}
+
+Rather than treat LLMs as inevitable, this research treats them as a hypothesis: that they can act as meaningful collaborators in the design of drone light shows. Our aim is to test that hypothesis not by chasing performance benchmarks, but by understanding what matters to those who actually do this work, and how technology might truly assist them.
+
+\subsection{Scope}
+This project is intentionally scoped to explore the use of language-based interfaces for the design phase of drone light shows. Our focus is not on drone deployment or control, but on understanding whether and how Large Language Models (LLMs) can assist in the early stages of creative ideation, including formation design, sequencing, and user interaction.
+
+Specifically, we do not aim to:
+\begin{itemize}
+  \item Develop novel control algorithms for real-time drone navigation or formation stabilization.
+  \item Train or fine-tune new LLMs from scratch.
+  \item Benchmark LLMs as standalone models. However, we may compare outputs from multiple models to explore how reliably and interpretably they support design tasks.
+  \item Conduct flight tests beyond limited-scale simulation or small-scale indoor platforms (e.g., Crazyflie).
+  \item Replace industry-standard drone show design software or claim deployment readiness.
+\end{itemize}
+
+Instead, our work is framed around developing a prototype design agent, a lightweight, prompt-based assistant that can interpret user inputs (natural language or structured) and generate candidate drone choreographies, which can then be visualized, refined, or re-prompted. This agent is not meant to replace professional tooling, but to augment it, enabling faster prototyping and intuitive exploration.
+
+Our focus includes:
+\begin{itemize}
+  \item Studying the workflow, constraints, and tools currently used by professionals through interviews and secondary research.
+  \item Prototyping modular interaction pipelines (e.g., prompt → LLM → shape/trajectory → visualization).
+  \item Evaluating outputs for interpretability, consistency, and usability by both expert and novice users.
+\end{itemize}
+
+Laypeople can explore the tool, but the core value is for professionals and researchers seeking to reduce iteration time and lower the barrier between creative intent and technical implementation.
+
+Ultimately, this research aims to lay the foundation for a new kind of collaborative interface, one that doesn't automate creativity, but facilitates it. We are not claiming to deliver a fully autonomous agent at this stage. However, the long-term goal is to evolve this system into a co-creative assistant that blends the strengths of human designers and generative language models in producing safe, expressive, and feasible drone light shows.
