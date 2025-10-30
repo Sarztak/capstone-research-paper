@@ -21,9 +21,9 @@ def create_example_figure():
     plt.tight_layout()
     plt.savefig('../figures/findings/example.pdf', bbox_inches='tight')
     plt.close()
-    print("✓ Created example figure")
+    print("Created example figure")
 
 if __name__ == "__main__":
-    print("📊 Generating figures...")
+    print("Generating figures...")
     create_example_figure()
-    print("✅ All figures generated!")
+    print("All figures generated!")

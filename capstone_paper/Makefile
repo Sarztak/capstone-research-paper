@@ -20,7 +20,7 @@ quick:
 	$(LATEX) -interaction=nonstopmode $(MAIN)
 
 clean:
-	rm -f *.aux *.bbl *.bcf *.blg *.log *.out *.toc *.lof *.lot *.run.xml
+	rm -f *.aux *.bbl *.bcf *.blg *.log *.out *.toc *.lof *.lot *.run.xml *.fls *.fdb_latexmk *.gz
 
 cleanall: clean
 	rm -f $(MAIN).pdf
