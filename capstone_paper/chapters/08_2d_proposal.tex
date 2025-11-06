@@ -1,0 +1,130 @@
+% Chapter: Pipeline Proposal
+
+\section{Pipeline Proposal}
+
+This use case represents an inversion of the typical benefits of a language model. 
+
+The great advantage of transformer models lies in their ability to process semantically-rich data regardless of its syntactic structure: arbitrary images, human speech, and semi-structured data that are outside the ability of formal, analytical systems to process, can be processed on the basis of their semantic content. 
+
+However, this advantage is most naturally applied to output semantically-dense, yet unstructured content: a language model is most at home when giving a natural-language explanation of an image, text, or computer program: but asking these semantic machines to output content subject to syntactic restrictions runs counter to this natural advantage.
+
+Thus, the ability of large language models to produce computer programs lags far behind their ability to produce literature, and the production of modern agents for computer programmming has consumed far more effort and expense than the initial development of these models.
+
+The use of LLMs to co-creatively produce drone light shows runs into a similar problem: though the value and human appreciation of such shows lies in their semantic content, at which language models excel, performing them is subject to strict requirements on flight paths in order to ensure the safety of bystanders, other flying objects, and the drones themselves: this can be understood as the 'syntax' of a drone light show, which places restrictions on valid semantic expression.
+
+When put in these terms, we see that the approaches taken by projects such as LLMFlock run against the natural advantage of these systems: utilizing LLMs in a decentralized consensus model to resolve flight paths expends an unnecessary amount of computation and introduces an unnecessary level of unpredictability in order to resolve problems which can be trivially solved by analytic means.
+
+Seeing this parallel, we take inspiration from the world of LLM agentic coding, which has made great strides in the last two years in providing solutions to the problem of extracting syntactically correct solutions from semantic machines. 
+
+The dominant paradigm that has emerged in the last two years is the Model Context Protocol (MCP). 
+
+\subsection{Why MCP?}
+
+Explanation of what an MCP is and why it's relevant for our purposes as a cybernetic structure than enables the production of syntactic data from semantic data.
+
+In order to closely integrate an LLM into the production of a drone light show, it would be necessary to create some structure analogous to the MCP, for the purpose of producing drone flight paths rather than computer programs. 
+
+...
+
+
+\subsection{The Black-and-White 2D case}
+
+Rather than attempting to fine-tune a model to directly produce 2D drone coordinates, we instead begin with an analytical system that can produce drone coordinates from existing 2D images. 
+
+This system operates by analogy to glyph rasterization in rendering. In the simplest case, we begin from a grayscale image, which is preprocessed in order to produce pixels which are either 'on' (black) or 'off' (white). The coordinates of these pixels within an image provide the sampling space from which we draw points. The key restriction on this sampling is that the points selected must both preserve the form of the original image using a small subset of points (usually 64), and also prevent any two points from being too close to one another, in order to prevent crashes. 
+
+We have experimented with several sampling algorithms, including a grid-sampler and a Poisson blue-noise sampler. However, grid sampling turned out to not produce pleasing images, and the blue noise sampler was unnecessarily complex. Our best results came from a naive, greedy furthest-point sampler, which at our operation scale is able to run at sub-frame rates on local systems. 
+From this subset of generated coordinates, we are able to export them in a form that can be directly read by the SkyBrush Studio Blender extension. Within Blender, it is then possible to directly edit the resulting drone formation and produce an end-to-end drone flight plan. 
+
+\subsection{The Color 2D Case}
+
+Extending this solution to color images is nontrivial: unlike grayscale images, where some preprocessing and global thresholding can directly produce a set of 'on' pixels to sample from, the same cannot be straightforwardly done for color images, where all colors in the image can potentially contribute to its semantic content. 
+
+There are several solutions.
+
+The most straightforward is to naively run the point sampler on the entire image without thresholding, and preserving the colors of the selected pixels. This produces a pointillistic representation of the original image which, with enough drones, could approximate the original. However, the amount of drones necessary to achieve this effect is large, and introduces a great deal of redundancy in reproducing solid-color swathes while leaving insufficient detail in edge regions. We do not regard this as a viable solution for our purposes.
+
+A more sophisticated approach would quantize the pixel colors and perform edge detection on this cruder version of the image to identify the regions of highest salience, which we would then sample from. This method has not yet been implemented and tested, but holds some promise.
+
+Another approach would involve separating a color image into its R, G, B components, performing thresholding to treat each one as a monochrome image, 'sampling' individually from each, and combining the resulting coordinates, producing mixed colors by merging coordinates close to one another. This approach is technically interesting, but we do not anticipate it would produce good results, largely because it would not preserve edge information prioritized in the second method above.
+
+\subsection{Notes on what kinds of images make for the best sources}
+
+If black and white, clear, bold line art is best
+If color images, bright, high-contrast images are best
+
+
+
+\subsection{The 3D Case}
+
+Extending this solution to three-dimensional images, which produce the most striking light shows, is very non-trivial. 
+
+The 2D subset of this problem is made artificially easy by two elements: first, the production of aesthetically pleasing two-dimensional images is comparatively easy, can now be performed trivially by modern diffusion models, and these images can be evaluated literally at a glance by non-professionals. 
+
+3D 'images' on the other hand are more complex. They can only be viewed from a single angle at a time, non-professionals in this space do not typically have the vocabulary or experience to discuss them as they would 2D images, and the field of 3D model generation has many domain-specific concerns (such as retopology) that are unfamiliar to non-professionals. Further, unlike the vast and easily-accessed samples of 2D photographs and illustrations, 3D models of high quality are much less common and much less accessible for training. 
+
+Nevertheless, progress in this field is being made, and in some cases being made so quickly that the contents of this paper will be out of date before publication. 
+
+Modern 3D-model AI generation software, such as Hy3D, Hunyuan, and MeshyAI, are now capable of creating 3D textures and meshes from 2D reference images. Unlike with two-dimensional images, where the color and shape data must be extracted from the same content, the combination of meshes and textures separates this information, such that coordinates can be directly sampled from polygon meshes, and the resulting colors can be straightforwardly accessed after sampling. 
+
+While the outputs of these models at time of writing do not yet reach the production-ready standard for video game development or 3D animation, that is not a problem for our use case, as the process of reducing these meshes down to a much smaller number of drone coordinates approximates extremely aggressive re-meshing, such that we are only interested in preserving large, bold details, and have no interest in preserving the fine detail which is essential to 3D animation but would be lost in a drone light show. This also biases us, as with 2D image earlier, towards reference images and 3D models which emphasize bold features and distinct colors, rather than fine detail and realistic textures.
+
+It follows that, given a 2D reference image (which can itself be generated trivially by diffusion models), the generation of 3D meshes and textures for sampling is trivial, and the production of drone coordinates and light colors from them is likewise straightforward using three-dimensional variants of the sampling agorithms described above.
+
+
+\subsection{Touching up with Blender MCP}
+
+... explore recent use of MCP to work directly inside Blender using voice commands
+
+
+\subsection{The Dynamic Case in 2D and 3D}
+
+The key to making such generated drone light shows viable lies in extending these approaches, both 2D and 3D, into the fourth dimension: time. 
+
+Here, the fields of illustration and three-dimensional modeling both give way to the separate field of animation, which adds a whole grammar of its own which most non-professionals do not have the vocabulary to describe.
+
+This is also where we run into the 'syntax' of a drone light show as a significant limiting factor. Unlike two and three-dimensional images, where respecting the syntax of a drone light show just required that no two points be too close to one another, an animated light show requires this invariant to be upheld as the drones fly in formation, restricting the possible space of action. 
+
+Taking the example of a black-and-white two-dimensional image once more, consider that applying our previous approach to a series of such images, even if they were originally part of the same animation, would not be sufficient: our original sampling approach has no awareness of adjacent 'frames' and is unable to provide any guarantee that a drone in location A at time t would be able to travel to an optimal point B at time t+1.
+
+While commercial and open-source drone light show software is capable of producing valid flight paths between different formations, they cannot guarantee that the resulting paths will be quick or smooth if the original formation coordinates are unoptimized. A naively-generated light show of this kind would 'stutter' and give an uneven impression.
+
+Thus, in order to produce smooth, optimized flight paths, it is necessary to perform end-to-end optimization of the 'frame' coordinates to minimize distance traveled on each frame. 
+
+This problem resembles both constrained optimization problems and classical machine learning problems: we can formally define our problem space and constraints, and could also encode it as a loss function, attempting to minimize the distance between point $i_t$ and point $i_{t+1}$, while maximizing distance between all points $i_t \in i..N$.
+
+However, neither approach is trivially applicable. Despite their superficial similarity, it's not at all clear that a machine-learning approach would efficiently solve this problem in a general manner. A constraint optimization solution is more approachable, but running such a solver will likely be computationally intensive, especially as the number of drones and frames increases. 
+
+These constraints can be loosened somewhat by introducing more drones than are strictly necessary for the light show: these redundant drones can expand the space of possible optimizations that can be made. However, we do not favor this method, as it would reduce the time cost of running software at the financial cost of buying more hardware. In addition, drone flight software such as SkyBrush limits the number of drones it can coordinate at once, and holding some of those drones in reserve reduces the definition of the light show.
+
+In addition to this problem, we face the difficulty of actually generating the base 'animations' from which to sample. As with the generation of 3D meshes from 2D reference images, this is a fast-moving space benefiting heavily from the application of fine-tuned transformer models, but is not yet mature. 
+
+The creation of short, realistic videos using large generative models has advanced considerably in the last six months, with models such as Google's Veo3 and OpenAI's Sora, but these do not produce animated meshes. One possible solution would be to generate an animation, and then produce 3D meshes from each still frame, or from a subset of frames, which would then be sampled and optimized from end to end. However this approach takes a detour through multiple layers of commercially available, and often expensive generative AI services, before arriving back at the computationally expensive, but analytically solvable, constrained optimization problem.
+
+\subsection{Total Pipeline}
+
+Altogether, we outline the following pipeline for generative AI co-creation of drone light shows:
+
+\begin{enumerate}
+    \item Supply initial image or video source: this can be supplied by the user, or generated by AI.
+    \begin{enumerate}
+        \item For three-dimensional light shows, generate a three-dimensional mesh and texture using commercially available generation software.
+    \end{enumerate}
+    \item  Sample drone coordinates from provided source pixels/mesh.
+    \begin{enumerate}
+        \item  For animations/video, perform end-to-end optimization to minimize drone flight distance between frames.
+    \end{enumerate}
+    \item Export resulting time-coordinate pairs in the preferred format of a drone show solver program, such as SkyBrush Studio's CSV format.
+    \item Tweak, position, order, and otherwise fine-tune the drone show in an interactive editor, such as SkyBrush Studio.
+    \item Export the final plan in a drone-compatible binary format, such as the SkyBrush .skyc format.
+\end{enumerate}
+
+This pipeline would automate large portions of the drone light show creation process, especially the initial design work for creating the contents of the light show. However, executing this would require access to multiple generative AI services as well as some nontrivial local computation, and the final export would still require the use of a drone show editor, albeit potentially with an MCP for further ease of use. If we choose to use open-source solutions, it may be possible to further integrate the flight path solver and binary compiler into a single application.
+
+In the face of this complexity, we might ask whether it would perhaps be more effective to train a generative model specifically for the purpose of outputting 3-dimensional animation coordinates, condensing most of these pipeline steps into a single process. We still favor the above approach, for two reasons. 
+
+First, condensing this all into a single process would drastically reduce user control over the process: while we are ultimately targeting non-professionals and seek to make this process as smooth as possible, we still wish to offer the user the ability to manually tweak and select options, especially at the image/video selection stage. Directly showing the user the source image and model and allowing them to accept, reject, or potentially tweak it manually if they are a power user, grants them a great deal more control over the outcome before the heavy work of coordinate generation is performed.
+
+Second, even with modern tools and open-weight models, we anticipate that the engineering work and cost of creating such a model would be much higher than the cost of joining these individual, modular steps into a single pipeline. While recreational drones and drone light shows continue to be popular, we do not anticipate that, at current costs, the addressable market for such an application would be large enough to merit this expense.
+
+
