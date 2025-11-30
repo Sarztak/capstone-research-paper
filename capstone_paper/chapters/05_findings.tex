@@ -1,56 +1,25 @@
 % Chapter: Findings
-\section{Proposed Findings}
+\section{Findings}
 
-This project does not seek to prove that language models can autonomously design drone light shows, but to explore the conditions under which they can make a meaningful contribution to the creative and operational workflow. The following findings are expected to emerge from the development and evaluation of the proposed pipeline.
+This project does not aim to demonstrate autonomous LLM-driven choreography, but rather to assess the feasibility of a constrained pipeline that links generative visual input to analytically validated drone formations. The findings presented here reflect the empirical performance of the implemented system and the practical constraints observed during its construction.
 
-\subsection{1. Anticipated Insights into the Design Workflow}
+\subsection{1. Sampling Quality and Formation Fidelity}
 
-We expect to observe that professional drone show design involves a persistent gap between conceptual ideation and technical realization. Current production tools prioritize safety and precision but offer limited support for intuitive exploration. By introducing a language-driven front end, the study anticipates revealing where human designers benefit most from semantic assistance — particularly during the early stages of form generation, sequencing, and iteration.  
+Evaluation of the image-to-formation stage demonstrated that sampling strategy plays a decisive role in the recognizability and structural coherence of the resulting drone layouts. Grid sampling proved efficient but produced uneven density. Blue-noise sampling yielded visually scattered formations. Farthest-point sampling consistently preserved global structure while maintaining minimum separation constraints, making it the most suitable method for converting silhouettes into stable drone formations.
 
-We also expect that the interaction between the LLM and the analytical system will clarify the boundaries of each domain: the LLM as an enabler of creative exploration, and the analytic solver as the arbiter of feasibility. This division may highlight a productive co-dependence rather than a competition between automation and human oversight.
+\subsection{2. Integration Feasibility with Skybrush Studio}
 
-\subsection{2. Anticipated Assessment of LLM Utility}
+The pipeline successfully exported sampled coordinates in \texttt{.csv} format and imported them into Skybrush Studio via the Blender extension. This demonstrated that simple, image-derived formations can be validated and visualized using professional-grade tooling without modification to existing workflows. The import process also highlighted the importance of coordinate normalization and consistent scaling to ensure accurate spatial interpretation within Skybrush.
 
-The evaluation phase is expected to show that LLMs perform well at generating semantically coherent, visually interpretable structures, but require additional analytical processing to ensure syntactic and physical validity. We anticipate several recurring patterns:
+\subsection{3. Constraints of 2D Static Formations}
 
-\begin{itemize}
-  \item \textbf{Interpretive Strengths:} LLMs are likely to excel at capturing compositional intent — relationships such as symmetry, layering, and transformation — especially when prompts are structured or include reference imagery.
-  \item \textbf{Structural Weaknesses:} They will likely struggle with precision in numerical or temporal parameters, reinforcing the need for analytic post-processing and verification.
-  \item \textbf{Prompt Sensitivity:} Structured prompting and re-prompting will probably yield more reliable and editable results than open-ended natural language.
-\end{itemize}
+Because the implemented system focuses on static 2D silhouettes, it does not address volumetric formations, temporal transitions, or dynamic choreography. This constraint clarified the limits of using images as semantic inputs: while effective for capturing shapes, they do not encode motion, timing, or 3D structure. These limitations reinforce the need for additional stages if such a pipeline were extended toward full performance design.
 
-We therefore anticipate that the most effective workflow will be a mixed-initiative process: the human designer constrains the prompt, the LLM generates semantically dense intermediates, and the analytical subsystem validates and corrects them.  
+\subsection{4. Practical Insights for Pipeline Design}
 
-In this context, the \textbf{Skybrush Studio API} is expected to serve as a critical interface, ensuring that generated formations comply with flight safety rules and that the overall system remains interoperable with existing professional pipelines.
-
-\subsection{3. Anticipated Observations on System Integration}
-
-Implementing the full pipeline will likely demonstrate that semantic and syntactic components can be linked effectively through standardized data schemas. This modular coupling is expected to prove feasible, though not seamless.  
-
-Potential integration challenges we expect to identify include:
-\begin{itemize}
-  \item Sensitivity to precision errors during data transfer between the sampling and validation stages.
-  \item Increasing computational demands as the number of drones and animation frames scales.
-  \item Limited aesthetic optimization in analytic solvers, requiring continued human involvement for artistic quality.
-\end{itemize}
-
-If these predictions hold, they will underscore that the primary engineering challenge is not semantic generation itself, but the orchestration of interoperable modules that translate creative intent into validated physical motion.
-
-\subsection{4. Anticipated Design Recommendations for Human–AI Collaboration}
-
-Based on preliminary experimentation and theoretical modeling, we expect to formulate practical guidelines for integrating LLMs into creative robotics workflows:
-
-\begin{itemize}
-  \item Prompts that combine semantic intent (“spiral expands into a sphere”) with explicit structural parameters (scale, spacing, frame count) will likely yield the most stable results.
-  \item Iterative visual feedback — whether through Blender or Skybrush Studio — will prove essential for aligning user perception with model interpretation.
-  \item Embedding analytic feedback (e.g., “reduce density,” “increase spacing”) within the prompting loop is expected to increase convergence speed and safety compliance.
-  \item Human oversight will remain indispensable, particularly for aesthetic decisions and final approval of executable trajectories.
-\end{itemize}
-
-These recommendations are anticipated to form the conceptual foundation for future co-creative systems that balance intuitive interaction with analytical accountability.
+The development process yielded several practical insights regarding modular system design. First, separating semantic input from analytical validation reduces failure modes when integrating heterogeneous tools. Second, using established solvers such as Skybrush Studio for constraint enforcement ensures that prototype systems remain compatible with real production infrastructures. Third, even limited generative input—such as silhouettes—can meaningfully accelerate early-stage formation design when paired with deterministic post-processing.
 
 \subsection{5. Summary}
 
-Overall, the study is expected to demonstrate that large language models contribute most effectively when positioned as semantic collaborators within a structured, analytic workflow. The proposed findings will likely reaffirm that language-driven generation, by itself, cannot guarantee operational safety or precision, but can dramatically accelerate and enrich the ideation process when coupled with validation systems such as the Skybrush Studio API.
+Overall, the findings indicate that a constrained, image-driven pipeline can produce analytically valid drone formations and interface cleanly with existing professional tooling. While limited in scope, the prototype demonstrates a practical method for linking generative visual concepts to executable formation data, and provides a foundation for future extensions into 3D sampling, temporal planning, or deeper integration with language-driven interfaces.
 
-Should these expectations be borne out, they will provide a blueprint for integrating generative and analytic intelligence — not only in drone choreography, but across domains where creativity must coexist with formal constraint.
