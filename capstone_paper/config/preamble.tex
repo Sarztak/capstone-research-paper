@@ -25,3 +25,9 @@
 \usepackage{needspace}
 \usepackage[hidelinks]{hyperref}
 \addbibresource{references.bib}
+
+% Fix bibliography overflow warnings
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+\setcounter{biburlnumpenalty}{9000}
+\appto{\bibsetup}{\raggedright}
