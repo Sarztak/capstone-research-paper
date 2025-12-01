@@ -34,10 +34,39 @@ This project does not aim to demonstrate autonomous LLM-driven choreography, but
 
 Evaluation of the image-to-formation stage showed that the choice of sampling strategy has a decisive impact on the recognizability and structural coherence of the resulting drone layouts. As illustrated in Figure 2, grid sampling runs efficiently but produces uneven point density that distorts fine details. Blue-noise sampling generates more uniformly spaced points, yet the result appears visually scattered and often loses the silhouette’s global structure. Farthest-point sampling consistently produced the most stable and interpretable formations by preserving overall shape while maintaining minimum spacing between drones, making it the most suitable method for converting binary silhouettes into deployable formations.valuation of the image-to-formation stage demonstrated that sampling strategy plays a decisive role in the recognizability and structural coherence of the resulting drone layouts. Grid sampling proved efficient but produced uneven density. Blue-noise sampling yielded visually scattered formations. Farthest-point sampling consistently preserved global structure while maintaining minimum separation constraints, making it the most suitable method for converting silhouettes into stable drone formations.
 
-
 \subsection{2. Integration Feasibility with Skybrush Studio}
 
-The pipeline successfully exported sampled coordinates in \texttt{.csv} format and imported them into Skybrush Studio via the Blender extension. This demonstrated that simple, image-derived formations can be validated and visualized using professional-grade tooling without modification to existing workflows. The import process also highlighted the importance of coordinate normalization and consistent scaling to ensure accurate spatial interpretation within Skybrush.
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[height=4.5cm]{figures/findings/takeoff_grid.png}
+        \caption{Takeoff grid}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[height=4.5cm]{figures/findings/ascent_transition.png}
+        \caption{Transition phase}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[height=4.5cm]{figures/findings/final_formation.png}
+        \caption{Final sampled formation}
+    \end{subfigure}
+    \caption{Rendered frames from the compiled \texttt{.skyc} file inside Skybrush Studio, showing the takeoff sequence, transition motion, and final assembled formation.}
+    \label{fig:skyc_render}
+\end{figure}
+
+
+
+The pipeline successfully exported the sampled coordinates as a \texttt{.csv} file and compiled them into a \texttt{.skyc} show file using Skybrush Studio. Rendering the resulting show in the
+Skybrush simulator confirmed that the generated formation data were structurally consistent and
+interpreted correctly by the production-grade toolchain. The animation demonstrated that the
+drones lifted from a standard takeoff grid, followed interpolated transition paths, and assembled
+into the sampled formation without inconsistencies in spacing or trajectory alignment.
+
 
 \subsection{3. Constraints of 2D Static Formations}
 
