@@ -1,58 +1,47 @@
 % Chapter: Methodology
 \section{Methodology}
 
-This work formalizes and implements a structured pipeline for co-creative drone light show design that integrates semantic generation by large language models (LLMs) with the syntactic validation and compilation capabilities of analytical solvers. The methodology proceeds from a mapping of existing workflows to the construction of a modular design pipeline, culminating in the export of validated trajectories through the Skybrush Studio API.
+This work implements a structured, prototype-level pipeline for the early-stage design of drone light show formations. The methodology emphasizes the integration of generative visual inputs with deterministic analytical validation, reflecting the separation between semantic intent and syntactic execution that characterizes professional workflows. The pipeline proceeds from image acquisition to point sampling, Skybrush-based validation, and final compilation into deployable formats.
 
 \subsection{Workflow Analysis}
 
-The first stage of this research involves a systematic analysis of professional drone show design workflows. While the conceptual focus of this study lies in AI-assisted co-creation, it is essential that the proposed pipeline reflects the actual practices, constraints, and cognitive demands of current production environments.
-
-\begin{itemize}
-  \item \textbf{Primary Research:} Interviews and correspondence with professional drone show choreographers, if accessible, to identify the stages of ideation, formation design, sequencing, and safety validation that define standard production workflows.
-  \item \textbf{Secondary Research:} A review of technical manuals, training materials, and user documentation from commercial tools such as SPH Engineering’s Drone Show Software, Verge Aero’s Design Studio, and Skybrush Studio. This analysis reconstructs the implicit logic of these platforms—the constraints they enforce, their data structures, and the order in which creative and technical steps are performed.
-\end{itemize}
-
-This workflow mapping establishes the empirical grounding for the pipeline: it clarifies which design functions can be meaningfully automated, which require human oversight, and how a semantic generation process can integrate with the syntactic verification systems already used in practice.
+The development of the pipeline begins with an examination of existing drone show design workflows. Although the project does not replicate full production practices, it draws on publicly available documentation and demonstrations from commercial platforms such as SPH Engineering's Drone Show Software, Verge Aero's Design Studio, and Skybrush Studio. These materials clarify the structure of professional pipelines, the constraints imposed during formation design, and the requirements for producing validated flight plans. This analysis ensures that the implemented system remains aligned with real operational expectations, even in a constrained prototype form.
 
 \subsection{Pipeline Architecture}
 
-Building on this foundation, we designed a modular end-to-end pipeline that mirrors the conceptual separation between \textit{semantic generation} and \textit{syntactic enforcement}. The system consists of four primary stages: input interpretation, coordinate generation, optimization and validation, and export.
+The implemented pipeline is modular and reflects a progression from creative input toward analytical enforcement. It consists of four principal stages:
 
 \begin{enumerate}
-  \item \textbf{Semantic Front End:} User intent is captured through natural language prompts or visual references. The LLM interprets these inputs to produce intermediate representations—textual descriptions, geometric specifications, or symbolic formation data. This stage is analogous to high-level code generation in agentic programming: the model proposes structures without guaranteeing their syntactic validity.
-  \item \textbf{Coordinate Generation:} The interpreted data are transformed into discrete drone coordinates. For 2D imagery, this involves sampling from binary or thresholded masks using point-selection algorithms such as greedy furthest-point or Poisson blue-noise sampling. For 3D models, polygonal meshes serve as sampling surfaces, with point distributions constrained by inter-drone distance thresholds to avoid collisions. These sampling methods formalize the “glyph rasterization” of visual data into spatial coordinates.
-  \item \textbf{Optimization and Temporal Linking:} When extended to animations or multi-frame sequences, a constrained optimization solver minimizes the distance between drone positions across frames while maintaining spatial separation constraints. This ensures smooth trajectories and continuous motion without collisions or visual stuttering.
-  \item \textbf{Validation and Export:} The resulting coordinates and flight paths are serialized into a format compatible with the \textbf{Skybrush Studio API}. The API backend performs safety verification, interpolates feasible trajectories, and compiles the validated data into executable show formats such as \texttt{.csv} or \texttt{.skyc}. This stage enforces all syntactic requirements of drone flight execution.
+  \item \textbf{Image Acquisition:} The pipeline begins with a visual reference supplied either directly by the user or generated via lightweight prompting through an external model. This image represents the semantic intent of the designer and provides the basis for subsequent formation extraction.
+
+  \item \textbf{Point Sampling:} The reference image is converted into a binary silhouette, from which a fixed number of drone positions are sampled. Several sampling strategies were evaluated, including grid sampling, blue-noise sampling, and farthest-point sampling. The latter proved most effective at preserving recognizable structure while maintaining minimum spacing between points.
+
+  \item \textbf{Skybrush Integration:} Sampled coordinates are exported as \texttt{.csv} files and imported into Skybrush Studio via its Blender extension. Within this environment, the sampled formation can be visualized and inspected using the same interface employed in professional drone show design.
+
+  \item \textbf{Validation and Export:} Skybrush Studio performs analytical checks on spacing and formation feasibility. Once validated, the formation can be compiled into deployable formats such as \texttt{.skyc}, enabling downstream integration with compatible drone control software.
 \end{enumerate}
 
-By distributing the generative and analytic responsibilities across these stages, the system ensures that creative exploration remains flexible while operational validity is guaranteed by established solvers.
+This architecture demonstrates how generative or user-driven visual concepts can be translated into syntactically valid formation data through established analytical tools.
 
 \subsection{Integration with Skybrush Studio API}
 
-The Skybrush Studio API serves as the backbone of the syntactic enforcement stage. It exposes HTTP endpoints that accept structured drone show descriptions in JSON or CSV form and return verified or compiled outputs ready for execution in Skybrush Live or equivalent control software.
-
-In our implementation, this API functions as the \textit{compiler} within the pipeline. It processes semantic output from the generative stage, applies formal safety checks—such as maximum velocity limits, altitude boundaries, and minimum spacing—and returns an optimized trajectory plan. This modular integration allows the pipeline to remain model-agnostic: any LLM or image generator can serve as the semantic source, provided that its output conforms to the schema required by the API.
-
-The choice to use an external, production-grade API rather than a custom solver reflects a broader methodological commitment: to demonstrate not only the feasibility of semantic–syntactic coupling in principle, but also its practical interoperability with existing industrial infrastructures.
+Although the pipeline primarily uses the Blender-integrated interface of Skybrush Studio, its design aligns with the capabilities of the Skybrush Studio API, which exposes programmatic endpoints for safety verification and binary compilation. The system's reliance on industry-grade validation tools illustrates how generative front ends can be coupled with existing production infrastructures without modifying their internal logic. This highlights the feasibility of modular semantic-syntactic integration in a realistic workflow.
 
 \subsection{Evaluation}
 
-Evaluation of the system focuses on qualitative and structural criteria rather than numerical performance benchmarks. The objective is to determine whether the proposed pipeline enhances interpretability, usability, and alignment with professional workflows.
+The evaluation focuses on qualitative and structural criteria rather than numerical performance metrics. Specifically, the pipeline is assessed on:
 
 \begin{itemize}
-  \item \textbf{Semantic Coherence:} Assess whether LLM-generated formations correspond consistently to the user’s described intent across prompts and iterations.
-  \item \textbf{Syntactic Validity:} Verify that exported formations pass Skybrush API validation without requiring manual correction.
-  \item \textbf{Editability:} Measure the ease with which users can adjust intermediate outputs—either through re-prompting or direct parameter modification—without destabilizing the pipeline.
-  \item \textbf{Iterative Efficiency:} Compare the time required to produce an acceptable formation or sequence against baseline manual methods within commercial software.
-  \item \textbf{Transparency:} Evaluate whether the system’s modular structure makes its transformations comprehensible to users, facilitating trust and learning.
+  \item \textbf{Sampling Fidelity:} The extent to which each sampling method preserves the recognizable structure of the input silhouette.
+  \item \textbf{Feasibility in Skybrush:} Whether the exported formations import cleanly and satisfy spacing constraints as enforced by Skybrush Studio.
+  \item \textbf{Workflow Coherence:} The clarity of the transformation from image input to validated formation, emphasizing interpretability and modularity.
 \end{itemize}
 
-Where feasible, these evaluations will be supplemented by qualitative feedback from domain professionals and by visual inspection of generated trajectories within Skybrush Studio.
+Evaluation is supported by visual inspection of sampled point sets and their rendered counterparts in Skybrush Studio.
 
 \subsection{Limitations}
 
-Several limitations are inherent in this methodology. First, the pipeline depends on the accuracy and interpretability of LLM outputs, which may exhibit semantic drift or ambiguity. Second, while the Skybrush Studio API enforces operational safety, it does not optimize for aesthetic quality, leaving subjective refinement to human users. Third, the optimization process for temporal transitions is computationally intensive and may not scale linearly with the number of drones or frames.
+The methodology is constrained by its focus on static 2D formations. It does not generate or optimize temporal transitions, and it does not incorporate full 3D formation sampling or trajectory planning. The use of external image-generation tools captures only a narrow slice of semantic input, and the analytical validation depends on the capabilities provided by Skybrush Studio. While these constraints reflect the prototype nature of the system, they do not undermine its central aim: to demonstrate a coherent workflow linking conceptual imagery to analytically validated drone formations.
 
-Finally, the current implementation assumes modular interoperability among independently developed systems—LLMs, sampling algorithms, and industrial solvers—that were not designed to function together. While this architecture demonstrates conceptual viability, further engineering would be required to achieve real-time performance or deployment readiness.
+Despite these limitations, the methodology establishes a reproducible framework that illustrates how generative inputs and analytic solvers can be coupled in practice. This provides a foundation for future work in extending the pipeline to dynamic, 3D, or fully integrated generative-analytic systems.
 
-Despite these constraints, the methodology provides a practical framework for bridging semantic generation and syntactic enforcement in the context of creative robotics. It establishes a reproducible structure that future work can refine, extend, and generalize to other domains where expressive design must coexist with formal constraints.

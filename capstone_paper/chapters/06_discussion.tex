@@ -1,42 +1,25 @@
 % Chapter: Discussion
-\section{Proposed Discussion}
+\section{Discussion}
 
-The proposed research is expected to highlight a structural tension at the center of all generative design systems: the balance between semantic creativity and syntactic constraint. In the context of drone light show design, this tension becomes especially pronounced. The visual and emotional impact of a show depends on open-ended creative expression, yet its safe execution demands adherence to precise geometric, temporal, and aerodynamic rules. Language models excel at the former but falter at the latter, while analytic solvers demonstrate the opposite tendency. The proposed pipeline seeks to mediate this divide by situating the LLM within a larger cybernetic loop that transforms abstract intent into executable precision.
+The development of this prototype clarifies both the possibilities and the limits of linking generative inputs with analytical validation in the context of drone light show design. Although the system is intentionally constrained to 2D silhouettes and static formations, its construction reveals several broader themes relevant to hybrid creative-analytic workflows.
 
-\subsection{Semantic–Syntactic Complementarity}
+\subsection{Separation of Creative Input and Analytical Enforcement}
 
-We expect that the pipeline will empirically illustrate how LLMs and analytic systems can be arranged in a complementary relationship rather than a hierarchical one. The LLM’s role as a semantic generator—capable of interpreting intent, metaphor, or composition—must be stabilized by an analytic module that enforces syntactic validity, such as ensuring collision-free trajectories and consistent spatial resolution. This model of complementarity echoes broader developments in computational creativity, where generative and deterministic components co-evolve to achieve both novelty and coherence.
+A central observation is that separating semantic input from syntactic enforcement simplifies integration with production-grade tools. By treating the input image as a high-level expression of intent and delegating feasibility checks entirely to Skybrush Studio, the pipeline avoids the brittleness typically associated with end-to-end generative systems. This division of labor proved practical: transformations remained interpretable, and failures were easier to diagnose because each stage preserved a clear functional boundary.
 
-In theoretical terms, this dynamic can be interpreted as an instantiation of cybernetic design: a feedback structure in which the human operator, the language model, and the analytic verifier form a closed communicative loop. Within this loop, human intuition supplies the evaluative signal, language articulates creative intent, and the analytic module enforces physical law. Each element constrains and informs the others.
+\subsection{Role of Sampling in Bridging Representation Layers}
 
-\subsection{Relation to the Model Context Protocol (MCP)}
+The sampling stage emerged as the central intermediary between conceptual imagery and executable formation data. Converting a silhouette into a discrete set of drone positions requires balancing visual fidelity with spatial constraints, and the behavior of different sampling strategies directly influenced that balance. Grid sampling maintained structural alignment but produced uneven point density; blue-noise sampling created visually dispersed patterns with reduced recognizability; and farthest-point sampling provided the most consistent preservation of overall form while maintaining minimum separation between points. These observations indicate that sampling strategy, rather than the generative origin of the image, plays a determining role in the quality and feasibility of early-stage formation design.
 
-The analogy to the Model Context Protocol (MCP) framework offers an instructive lens. MCP formalizes the exchange of context and constraints between language models and external systems to ensure that generated code is syntactically correct. A similar structure is anticipated to emerge here, but oriented toward spatial and temporal constraints rather than textual ones. The drone show pipeline effectively acts as a “spatial MCP,” translating semantic commands into 3D motion primitives that are validated by the analytic solver.  
+\subsection{Practical Interoperability with Production Tools}
 
-We expect this analogy to clarify how a modular, protocol-based approach can make language-driven design systems more reliable without requiring model fine-tuning. By separating semantic generation from syntactic verification, we preserve flexibility and interpretability while maintaining operational rigor.
+Importing sampled coordinates into Skybrush Studio validated the practical feasibility of the pipeline. The tool's existing infrastructure for visualization, scaling, and collision checking absorbed the upstream variability of the sampling process without modification. This reinforces the value of designing systems that complement, rather than replace, established workflows. The pipeline demonstrates that lightweight generative front ends can integrate meaningfully with industrial solvers even when the generative component is minimal.
 
-\subsection{Human Oversight and Co-Creative Dynamics}
+\subsection{Limitations of the Current Approach}
 
-Another anticipated area of discussion concerns the shifting role of human authorship in mixed-initiative systems. Early findings are expected to show that while language interfaces can accelerate ideation, they also risk overabstracting control, making users dependent on opaque outputs. The integration of analytic validation, visual feedback, and modular iteration is therefore expected to preserve a form of “semantic accountability,” where the user remains the interpretive center of the creative loop.  
+The prototype exposes clear limitations. The exclusive focus on 2D silhouettes constrains the expressive range of formations and precludes volumetric or dynamic choreography. The absence of temporal modeling means that the system cannot produce transitions or full sequences. Furthermore, the reliance on external image generation limits semantic nuance: an image captures shape but not narrative or motion. These constraints reflect scope rather than failure, but they delimit the system's usefulness for full production pipelines.
 
-This observation aligns with the broader discourse on human–AI collaboration: systems that preserve user agency through interpretable feedback are more likely to be adopted by professionals. Rather than displacing expertise, the LLM becomes an extension of it—a cognitive amplifier within a constrained domain.
+\subsection{Implications for Future Work}
 
-\subsection{Limitations and Open Questions}
+Despite its limitations, the prototype illustrates how a generative-analytic pipeline can be constructed incrementally. Future extensions may incorporate 3D mesh sampling, temporal optimization, or deeper integration with language-driven interfaces. More broadly, the project suggests that hybrid systems in creative robotics benefit from modular architectures in which generative tools provide flexible inputs while analytical solvers ensure feasibility. Such an approach may offer a viable template for other domains where expressive design must coexist with formal operational constraints.
 
-The discussion will also consider the boundaries of this approach. Anticipated limitations include:
-\begin{itemize}
-  \item The computational cost of large-scale trajectory optimization, especially in dynamic 3D cases.
-  \item The challenge of aligning aesthetic judgment with analytic evaluation metrics.
-  \item The difficulty of generalizing to arbitrary drone configurations or custom hardware ecosystems.
-  \item The risk of overfitting prompt structures to narrow classes of formations, reducing creative diversity.
-\end{itemize}
-
-These constraints are not merely technical but epistemic: they reveal the limits of what semantic generation can accomplish without deeper integration of domain knowledge. Addressing them will require both engineering refinements and new design languages that bridge human and machine representation.
-
-\subsection{Toward a General Framework for Semantic–Syntactic Design}
-
-If validated, the proposed approach may provide a template for future hybrid systems that operate across domains where generative creativity meets physical or logical constraint—architecture, robotic performance, spatial design, and beyond. The larger theoretical contribution is expected to lie in the articulation of a general design grammar in which semantic agents and syntactic solvers cooperate through shared context protocols.  
-
-By examining drone choreography as a concrete testbed for this integration, the project aspires to move the discourse on LLMs beyond isolated demonstrations and toward structured, reproducible pipelines that maintain both creative latitude and operational discipline.
-
-In this light, the study is less about automating creativity than about formalizing collaboration: understanding how human intention, language-driven generation, and analytical verification can co-exist in a single design system without diminishing one another.

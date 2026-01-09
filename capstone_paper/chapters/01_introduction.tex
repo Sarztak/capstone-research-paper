@@ -16,30 +16,35 @@ Our work begins from this recognition and seeks to explore whether these two mod
 
 \subsection{Analysis Goals}
 
-The central objective of this research is to evaluate how language-based systems can meaningfully contribute to the workflow of drone show design, rather than to demonstrate isolated technical feasibility. We aim to examine how semantic generative processes can be coupled with formal analytic stages to produce syntactically valid and operationally safe results.
+The goal of this research is to evaluate how generative systems can contribute to the early design stages of drone light shows by integrating semantic input with deterministic analytical workflows. Rather than demonstrating fully autonomous choreography, the project examines how image-based generation and lightweight prompting can be coupled to existing validation tools to produce formations that are both expressive and executable.
 
-Accordingly, we define the following guiding questions:
+Our analysis focuses on four questions:
 
 \begin{enumerate}
-  \item What are the real creative, technical, and operational constraints that define professional drone show design?
-  \item How can the expressive power of LLMs be harnessed to produce meaningful inputs for downstream analytical solvers and simulation systems?
-  \item Can we formalize a pipeline in which semantic generation and syntactic enforcement coexist — preserving creative flexibility while ensuring feasibility?
-  \item What role can established production systems such as Skybrush Studio play in this integration, and how might such a hybrid approach inform future design interfaces?
+  \item What constraints shape the current workflow of professional drone show design, and where does early-stage creative exploration slow the process?
+
+  \item How can generative tools—either through images or lightweight language prompting—provide meaningful starting points for formation design?
+
+  \item How can sampling and analytical validation ensure that these generated formations are transformed into physically feasible, drone-ready outputs?
+
+  \item What role can production systems such as Skybrush Studio play in grounding generative content within real operational constraints?
 \end{enumerate}
 
-This investigation treats LLMs not as autonomous choreographers but as components within a larger cybernetic structure. By analyzing their performance in tandem with analytical solvers, we seek to clarify their true contribution to the creative process and identify where the boundary between generative flexibility and formal verification should lie.
+This work treats generative models not as autonomous designers but as one component in a broader pipeline. The study examines how their outputs can be mediated, constrained, and ultimately rendered useful when paired with established analytical solvers.
 
 \subsection{Scope}
 
-This project focuses on the design phase of drone light show creation, emphasizing the transition from conceptual imagery or verbal description to a validated, executable formation plan. It does not involve real-time flight control, deployment logistics, or novel control theory. Rather, it seeks to bridge the semantic and syntactic stages of the production pipeline.
+This project is limited to the design phase of drone light show development. The focus is on transforming conceptual visual inputs—user-provided images or lightweight generative prompts—into validated drone formations. The work does not involve flight testing, real-time control, or new control algorithms. Instead, it concentrates on bridging creative generation with analytic feasibility.
 
-The scope of this work includes:
+The scope includes:
+
 \begin{itemize}
-  \item Developing and testing a modular pipeline that combines generative LLM outputs with analytic transformation and validation stages.
-  \item Implementing 2D and 3D formation generation from images and meshes using sampling algorithms inspired by computer graphics.
-  \item Integrating the final stage of compilation and verification through the Skybrush Studio API, enabling compatibility with professional-grade drone control systems.
-  \item Exploring the potential of Model Context Protocol (MCP)-style interaction to provide real-time, human-in-the-loop editing within design environments such as Blender.
+  \item Implementing a modular pipeline: image acquisition, 2D point sampling, analytic validation, and Skybrush-based compilation.
+  \item Evaluating sampling strategies for converting images into drone-ready formations.
+  \item Integrating the pipeline with the Skybrush Studio API for validation and deployment compatibility.
+  \item Conducting conceptual exploration of how such a pipeline could be extended toward MCP-style interaction or 3D formation generation.
 \end{itemize}
 
-We do not aim to develop a self-contained generative model for drone trajectories, nor to produce a fully autonomous end-to-end system. The purpose of this work is to formalize and test a \textit{structured interface} between generative language systems and the analytic frameworks that ensure physical validity. In doing so, it provides both a practical and conceptual foundation for future tools that support co-creative, interpretable, and safe design of drone swarm performances.
+The project does not aim to create a standalone generative model for drone trajectories or a fully automated end-to-end design system. Instead, it formalizes and demonstrates a constrained but functional workflow that connects generative creativity with established, safety-pragmatic analytic tools.
+
 
