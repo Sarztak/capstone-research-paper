@@ -5,7 +5,35 @@ This project does not aim to demonstrate autonomous LLM-driven choreography, but
 
 \subsection{1. Sampling Quality and Formation Fidelity}
 
-Evaluation of the image-to-formation stage demonstrated that sampling strategy plays a decisive role in the recognizability and structural coherence of the resulting drone layouts. Grid sampling proved efficient but produced uneven density. Blue-noise sampling yielded visually scattered formations. Farthest-point sampling consistently preserved global structure while maintaining minimum separation constraints, making it the most suitable method for converting silhouettes into stable drone formations.
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/findings/wabbit_grid.png}
+        \caption*{Grid Sampling}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/findings/wabbit_blue.png}
+        \caption*{Blue-Noise Sampling}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/findings/wabbit_farthest.png}
+        \caption*{Farthest-Point Sampling}
+    \end{subfigure}
+
+    \vspace{4mm}
+
+    \caption{\textbf{Comparison of sampling strategies used to convert binary silhouettes into drone formations.}
+    Grid sampling runs efficiently but produces uneven density; blue-noise sampling yields scattered and harder-to-recognize forms; 
+    farthest-point sampling preserves global structure while maintaining minimum inter-drone spacing.}
+\end{figure}
+
+Evaluation of the image-to-formation stage showed that the choice of sampling strategy has a decisive impact on the recognizability and structural coherence of the resulting drone layouts. As illustrated in Figure 2, grid sampling runs efficiently but produces uneven point density that distorts fine details. Blue-noise sampling generates more uniformly spaced points, yet the result appears visually scattered and often loses the silhouette’s global structure. Farthest-point sampling consistently produced the most stable and interpretable formations by preserving overall shape while maintaining minimum spacing between drones, making it the most suitable method for converting binary silhouettes into deployable formations.valuation of the image-to-formation stage demonstrated that sampling strategy plays a decisive role in the recognizability and structural coherence of the resulting drone layouts. Grid sampling proved efficient but produced uneven density. Blue-noise sampling yielded visually scattered formations. Farthest-point sampling consistently preserved global structure while maintaining minimum separation constraints, making it the most suitable method for converting silhouettes into stable drone formations.
+
 
 \subsection{2. Integration Feasibility with Skybrush Studio}
 
