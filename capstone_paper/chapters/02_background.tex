@@ -1,31 +1,37 @@
 % Chapter: Background
-
 \section{Background}
-\subsection{Commercial Tools}
-Today, multiple companies offer professional-grade software platforms to support drone light show production. Tools such as SPH Engineering’s Drone Show Software, Verge Aero's Design Studio, and Vimdrones Designer enable users to create and preview 3D formations, script movement paths over time, and integrate visual elements like lighting and branding. These platforms are typically timeline-based, GUI-driven, and built for production environments with specific drone hardware in mind.
 
-While powerful, these tools assume a high degree of familiarity with the technical pipeline. They are not accessible to users outside the domain and require training, experience, and often vendor lock-in. More importantly, they provide little to no support for early-stage creative exploration. There is no natural language interface, no intelligent co-creation support, and limited ability to iterate fluidly based on rough conceptual prompts. This presents a missed opportunity: the most time-intensive and cognitively demanding part of the workflow, shaping the creative intent into executable sequences, remains largely manual.
+\subsection{Commercial Tools}
+
+The design and execution of professional drone light shows are supported by a small ecosystem of proprietary software suites, including SPH Engineering’s Drone Show Software, Verge Aero’s Design Studio, and Vimdrones Designer. These platforms provide integrated environments for defining 3D formations, scripting transitions, synchronizing lighting, and validating physical constraints. Their primary users are production companies and technical directors who work directly with proprietary drone fleets, often under hardware-specific licenses.
+
+While these systems are robust and production-ready, they are not designed for exploratory or co-creative use. Their interfaces are graphical and timeline-based, emphasizing precision editing over conceptual ideation. Designers must specify individual formations, transitions, and timing parameters manually, with little algorithmic assistance during the early creative phase. Moreover, these environments assume substantial domain expertise: familiarity with aeronautical constraints, spatial reasoning in three dimensions, and the structure of executable show files. This combination of technical and artistic knowledge creates a high barrier to entry and limits the accessibility of drone choreography as a creative medium.
+
+In recent years, \textbf{Skybrush Studio} has emerged as an influential hybrid system, bridging production-grade deployment with modular, API-accessible design tools. Its architecture separates front-end interfaces such as Blender extensions from a back-end engine that performs safety validation, trajectory optimization, and compilation into binary formats (e.g., \texttt{.skyc}). The \textbf{Skybrush Studio API} allows external systems to interact with this back-end directly through HTTP requests, enabling procedural or automated generation of drone flight plans. This capacity positions Skybrush not only as a professional editing suite but also as a potential integration layer for research pipelines that combine semantic generation with analytical verification.
+
+From the standpoint of creative ideation, however, all these tools — including Skybrush in its commercial form — remain fundamentally syntactic. They excel at enforcing constraints and ensuring safety but offer no mechanisms for generating or interpreting creative intent expressed in natural language or visual form. The “semantic front end” of drone choreography remains largely undeveloped.
 
 \subsection{Academic Work}
-A wave of academic interest has emerged around using Large Language Models (LLMs) to generate drone swarm behaviors. These efforts share a common goal: enabling intuitive interfaces for human-guided swarm design. However, the methods differ significantly, and each comes with critical limitations.
 
-CLIPSwarm uses CLIP embeddings to map single-word prompts (e.g., “leaf”) to 2D contour formations generated via alpha shapes. The formation is refined iteratively to improve CLIP similarity. While visually compelling, the system is limited to 2D silhouettes, lacks fine control, and shows semantic drift. Importantly, CLIPSwarm has only been tested in photo-realistic simulation, with no hardware demonstration.
+Academic research into LLM-assisted swarm design has sought to fill this semantic gap by introducing generative, language-driven approaches to formation and trajectory planning. Across systems such as \textit{CLIPSwarm}, \textit{SwarmGPT-Primitive}, \textit{Swarm-GPT}, \textit{LLM-Flock}, and \textit{FlockGPT}, the central objective is consistent: to make swarm design more intuitive by allowing human operators to describe desired behaviors in natural language.
 
-SwarmGPT-Primitive generates a sequence of motion primitives (spiral, helix, wave) that align with musical beats. It includes a safety filter and self-correction for invalid LLM outputs. While this method improves reliability, it constrains creativity to a fixed library of motions and assumes prompt-to-primitive alignment can capture intent.
+While conceptually aligned, these systems differ in scope and architecture. \textbf{CLIPSwarm} uses CLIP embeddings to associate textual prompts with 2D geometric outlines, producing silhouettes through iterative refinement of contour shapes. Its outputs are visually legible but limited to planar designs without dynamic motion or 3D extension. \textbf{SwarmGPT-Primitive} adopts a library-based approach, mapping language to predefined motion primitives that are synchronized with musical beats; it provides consistency but constrains expressiveness. \textbf{Swarm-GPT} attempts a more flexible waypoint generation process, where LLMs output raw coordinates subsequently filtered for safety, but the method suffers from verbosity, limited editability, and fragile temporal coherence. 
 
-Swarm-GPT uses LLMs to generate waypoints for each drone, synchronized with beat timings from an audio track. These are passed through a safety optimizer before deployment. While more flexible, the approach suffers from verbosity, repetition, and difficulty modifying specific parts of the show. It also operates centrally, rather than distributing reasoning.
+\textbf{LLM-Flock} departs from centralized control by embedding LLMs directly on each agent, coordinating flight patterns through decentralized consensus. Though theoretically elegant, the approach introduces unpredictability and remains confined to simple geometric formations. Finally, \textbf{FlockGPT} introduces a dialogue-based interaction model, using signed distance functions to represent target shapes and allowing the user to iteratively refine geometry through conversation. Yet even this interaction model operates on static spatial data and does not address the temporal or safety constraints inherent in executable drone shows.
 
-LLM-Flock explores the use of LLMs for decentralized formation planning. Each robot runs an LLM locally and adopts plans through an influence-based consensus protocol. This novel setup supports adaptability and demonstrates physical deployment with Crazyflie drones. However, the approach is currently limited to basic shapes (circle, triangle), with no support for creative choreography or sequence design.
-
-FlockGPT introduces signed distance functions (SDFs) to define target formations. A central LLM converts natural language prompts into SDFs, which are then used to generate formations and allow real-time dialogue for revision. This is the most interaction-focused framework to date, but is limited to static geometry, lacking any notion of timing, motion, or music.
+Across this literature, the primary role of the language model remains interpretive or symbolic: it translates natural language into an intermediate representation but defers all physical validation, optimization, and compilation to analytic solvers. The separation between semantic expression and syntactic enforcement persists, mirroring the same division seen in professional production tools.
 
 \subsection{Identified Gaps}
-Across both commercial and academic approaches, several common limitations emerge:
+
+Taken together, commercial and academic approaches outline two complementary but disconnected strengths. Commercial software provides the formal infrastructure — robust safety guarantees, validated trajectories, and executable output formats — but offers little support for creative ideation. Academic systems, conversely, provide generative flexibility through natural language or image-based interfaces, yet lack integration with the analytical frameworks that ensure real-world feasibility.
+
+This research seeks to reconcile these domains through a structured, end-to-end pipeline that unites semantic generation and syntactic validation. The core insight is that LLMs should not attempt to directly produce executable flight paths, but rather to generate interpretable intermediate representations — such as 2D or 3D spatial configurations — which are then transformed, optimized, and verified through established analytical systems. The \textbf{Skybrush Studio API} provides a natural anchor for this integration, offering a programmatic interface where creative outputs from generative models can be converted into validated trajectories and compiled into deployable show formats.
+
+In summary, the key methodological gaps motivating this work are:
 \begin{itemize}
-  \item Studying the workflow, constraints, and tools currently used by professionals through interviews and secondary research.
-  \item Prototyping modular interaction pipelines (e.g., prompt → LLM → shape/trajectory → visualization).
-  \item Evaluating outputs for interpretability, consistency, and usability by both expert and novice users.
+  \item The absence of an integrated pipeline linking semantic generation to formal verification.
+  \item The lack of human-centered design frameworks that combine creative exploration with operational feasibility.
+  \item The need for modular interfaces — such as those provided by Skybrush — that can mediate between generative AI systems and existing production infrastructures.
 \end{itemize}
 
-This work positions itself to address these gaps by building a prototype agent that emphasizes human-in-the-loop iteration, creative support, and workflow awareness, without overpromising full automation or technical generalization.
-
+This project positions itself at that intersection: developing a structured, hybrid workflow that unifies language-driven ideation with professional-grade safety and execution frameworks.

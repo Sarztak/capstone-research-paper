@@ -1,28 +1,22 @@
 \newpage
 \section{Executive Summary}
 
-Designing drone light shows is a complex process that combines creative choreography with technical precision. While commercial software platforms exist to support production, they are typically built for trained professionals and require manual specification of shapes, transitions, and safety constraints. As large language models (LLMs) become increasingly capable of interpreting natural language, researchers have proposed using them to translate high-level user prompts into drone swarm behaviors. However, current approaches typically use LLMs as translators — not as co-creative agents — and rarely engage with the realities of professional drone show design.
+Designing drone light shows requires the reconciliation of two fundamentally different modes of reasoning: artistic ideation and analytical precision. While commercial tools such as SPH Engineering’s Drone Show Software, Verge Aero’s Design Studio, and Vimdrones Designer provide robust production environments for professionals, they remain heavily procedural. Designers must manually specify formations, transitions, and safety constraints within rigid graphical interfaces. These systems guarantee operational safety but offer limited support for the exploratory, iterative, and semantically rich stages of creative design.
 
-This project investigates whether language-based agents can meaningfully assist in the early stages of drone choreography, with a focus on feasibility, interpretability, and user alignment. Our goal is not to automate the design process, but to explore how LLMs can serve as collaborative tools that reduce the cognitive and operational overhead of translating intent into executable formations.
+At the same time, advances in large language models (LLMs) have made it possible to express complex spatial and temporal ideas in natural language. Recent academic work — including CLIPSwarm, SwarmGPT-Primitive, Swarm-GPT, FlockGPT, and LLM-Flock — has attempted to harness this capability to generate drone swarm behaviors directly from prompts. Yet these approaches largely treat LLMs as translators rather than collaborators. They produce symbolic or geometric intermediates that must still be processed by traditional solvers, without engaging with the workflows, constraints, or interpretive needs of professional show designers.
 
-We begin by reviewing both academic papers and commercial tools. Prior work
-includes systems such as 
-CLIPSwarm \parencite{pueyo2024clipswarm}, 
-SwarmGPT-Primitive \parencite{jiao2023swarmgpt}, 
-Swarm-GPT \parencite{vyas2024swarmgptprimitive}, 
-FlockGPT \parencite{li2025llmflock}, and 
-LLM-Flock \parencite{li2025llmflock}. 
-These systems demonstrate various architectures — from prompt-to-waypoint translation to decentralized plan generation — but none are grounded in actual design workflows or tested for usability by real users.
+This project addresses that disconnect by proposing and implementing an integrated design pipeline that unites the semantic flexibility of LLMs with the syntactic rigor of analytical systems. Instead of attempting to have a language model produce executable trajectories directly, we introduce a structured framework in which generative models act as semantic front ends. They produce interpretable spatial representations—images, meshes, or symbolic formations—that are subsequently sampled, optimized, validated, and compiled through analytical methods. The final stage of this process integrates with the \textbf{Skybrush Studio API}, which performs automated safety checks, trajectory optimization, and binary compilation into deployable show files (\texttt{.csv} or \texttt{.skyc} formats).
 
-Commercially, tools like SPH Engineering's Drone Show Software and Verge Aero's Design Studio support professional use but lack intuitive or assistive interfaces for creative ideation. Our project situates itself in this gap: exploring how a prompt-based “design agent” could support iterative, interpretable, and rapid prototyping of drone choreographies.
+Through this architecture, the project reframes LLM-assisted design not as an automation problem, but as a problem of \textit{semantic–syntactic integration}. The pipeline demonstrates that human creativity, machine interpretation, and analytical enforcement can coexist in a modular, interoperable workflow. The language model proposes; the analytical system verifies; the human designer iterates.
 
-To investigate this, we will:
+The research proceeded through four principal phases:
 \begin{enumerate}
-    \item Interview professionals (if possible) to understand current workflows and bottlenecks.
-    \item Develop a modular prototype agent that accepts user prompts, interprets them via LLMs, and visualizes resulting formations.
-    \item Evaluate outputs based on interpretability, consistency, and alignment with user intent.
-    \item Compare structured prompt templates against open-ended input to assess design trade-offs.  
+    \item \textbf{Workflow Analysis:} Mapping the tools, cognitive processes, and constraints of existing professional pipelines through documentation review and, where possible, practitioner input.
+    \item \textbf{Pipeline Development:} Implementing a modular end-to-end system encompassing language interpretation, coordinate generation, temporal optimization, and validation through the Skybrush Studio API.
+    \item \textbf{Evaluation:} Assessing the semantic coherence, syntactic validity, and iterative usability of generated formations across multiple model architectures and prompting strategies.
+    \item \textbf{Design Synthesis:} Deriving practical guidelines for structuring prompts, incorporating analytic feedback, and supporting human–AI co-creation within production workflows.
 \end{enumerate}
 
-Our expected outcome is not a production-ready deployment tool, but a critically evaluated prototype and a set of design insights. These may inform future tools that aim to bridge the divide between intuitive expression and technical execution in drone choreography — whether through language models or other interfaces.
+The findings suggest that LLMs are most valuable not as autonomous generators of executable drone paths, but as accelerators of creative ideation. When coupled with analytical solvers and validation APIs, they enable rapid exploration of conceptual designs that can be safely transformed into physical performances. In this way, the project contributes both a working prototype and a conceptual model for integrating semantic and syntactic intelligence in creative robotics.
 
+Ultimately, this work demonstrates that the path toward accessible and interpretable drone show design lies not in replacing human expertise, but in structuring collaboration—between human designers, generative models, and the analytical infrastructures that ensure safe and executable outcomes.
