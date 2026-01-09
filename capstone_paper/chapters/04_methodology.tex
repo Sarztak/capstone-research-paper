@@ -9,13 +9,36 @@ The development of the pipeline begins with an examination of existing drone sho
 
 \subsection{Pipeline Architecture}
 
-The implemented pipeline is modular and reflects a progression from creative input toward analytical enforcement. It consists of four principal stages:
+The implemented pipeline consists of four modular stages that transform a visual input 
+into a validated drone formation compatible with Skybrush Studio. 
+An overview of this workflow is shown in Figure~\ref{fig:pipeline}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.99\textwidth]{figures/methodology/pipeline_diagram.png}
+    \vspace{0.5em}
+    \caption{Overview of the implemented pipeline, from image-based input to sampled formation extraction and Skybrush-based analytical validation.}
+    \label{fig:pipeline}
+    \vspace{1.5em}
+\end{figure}
+
 
 \begin{enumerate}
   \item \textbf{Image Acquisition:} The pipeline begins with a visual reference supplied either directly by the user or generated via lightweight prompting through an external model. This image represents the semantic intent of the designer and provides the basis for subsequent formation extraction.
 
   \item \textbf{Point Sampling:} The reference image is converted into a binary silhouette, from which a fixed number of drone positions are sampled. Several sampling strategies were evaluated, including grid sampling, blue-noise sampling, and farthest-point sampling. The latter proved most effective at preserving recognizable structure while maintaining minimum spacing between points.
+  Figure~\ref{fig:bunny_sampling} illustrates the transformation from silhouette to sampled points.
 
+  \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.55\textwidth]{figures/methodology/bunny_sampling.png} 
+      \vspace{0.5em}
+      \caption{Example of a binary silhouette (left) and the resulting sampled point set (right) produced through farthest-point sampling.}
+      \label{fig:bunny_sampling}
+      \vspace{0.5em}
+  \end{figure}
+
+  \vspace{1.5em}
   \item \textbf{Skybrush Integration:} Sampled coordinates are exported as \texttt{.csv} files and imported into Skybrush Studio via its Blender extension. Within this environment, the sampled formation can be visualized and inspected using the same interface employed in professional drone show design.
 
   \item \textbf{Validation and Export:} Skybrush Studio performs analytical checks on spacing and formation feasibility. Once validated, the formation can be compiled into deployable formats such as \texttt{.skyc}, enabling downstream integration with compatible drone control software.
@@ -26,6 +49,31 @@ This architecture demonstrates how generative or user-driven visual concepts can
 \subsection{Integration with Skybrush Studio API}
 
 Although the pipeline primarily uses the Blender-integrated interface of Skybrush Studio, its design aligns with the capabilities of the Skybrush Studio API, which exposes programmatic endpoints for safety verification and binary compilation. The system's reliance on industry-grade validation tools illustrates how generative front ends can be coupled with existing production infrastructures without modifying their internal logic. This highlights the feasibility of modular semantic-syntactic integration in a realistic workflow.
+
+\begin{figure}[tbp]
+    \centering
+
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[height=6cm]{figures/methodology/blender_import.png}
+        \vspace{0.5em}
+        \caption{Imported formation visualized in Blender.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[height=6cm]{figures/methodology/blender_trajectories.png}
+        \vspace{0.5em}
+        \caption{Generated trajectories and temporal linking.}
+    \end{subfigure}
+
+    \vspace{0.8em}
+
+    \caption{Visualization of sampled formations and trajectory planning using the Skybrush Studio extension within Blender.}
+\end{figure}
+
+
+
 
 \subsection{Evaluation}
 
